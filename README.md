@@ -55,4 +55,5 @@ Make sure you have the following installed on your system:
    npm start
 
 ### Usage
+    
     Once the server is running, the API endpoints can be accessed using a REST client (e.g., Postman). Depending on your role (Admin or User), you'll have access to different endpoints and functionalities. Make sure you're using the appropriate JWT token for authentication.
