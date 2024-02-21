@@ -17,9 +17,7 @@ categoryCtrl.create = async (req, res) => {
     // looking for exsisting category
     const category = await Category.findOne({ title: body.title });
     if (category) {
-      return res
-        .status(409)
-        .json({ errors: [{ msg: "Category already present" }] });
+      return res.status(409).json({ errors: [{ msg: "Category already present" }] });
     } else {
       const newEntry = new Category(body);
       const result = await newEntry.save();

@@ -28,15 +28,10 @@ const feedsCron = (cronJob, url, existingFeeds, category) => {
       if (existingFeeds.length == 0) {
         saveFeeds(parsedResult, category._id);
       } else {
-        let recentFeed =
-          existingFeeds
-            .map(el => new Date(el.pubDate))
-            .sort((a, b) => new Date(b) - new Date(a))[0] || new Date();
+        let recentFeed = existingFeeds.map(el => new Date(el.pubDate)).sort((a, b) => new Date(b) - new Date(a))[0] || new Date();
 
         // Filter only new feeds
-        const newFeeds = parsedResult.filter(
-          el => new Date(el.pubDate[0]) > recentFeed
-        );
+        const newFeeds = parsedResult.filter(el => new Date(el.pubDate[0]) > recentFeed);
         saveFeeds(newFeeds, category._id);
       }
     } catch (err) {

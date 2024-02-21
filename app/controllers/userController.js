@@ -21,23 +21,14 @@ userCtrl.login = async (req, res) => {
     const user = await Users.findOne({ email: body.email });
     if (user) {
       // password verification
-      const verifiedPassword = await bcrypt.compare(
-        body.password,
-        user.password
-      );
+      const verifiedPassword = await bcrypt.compare(body.password, user.password);
       if (!verifiedPassword) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: "Invalid email / password." }] });
+        return res.status(400).json({ errors: [{ msg: "Invalid email / password." }] });
       } else {
         // generating user token
-        const token = jwt.sign(
-          { userId: user._id, role: user.role },
-          secretKey,
-          {
-            expiresIn: "7d",
-          }
-        );
+        const token = jwt.sign({ userId: user._id, role: user.role }, secretKey, {
+          expiresIn: "7d",
+        });
         res.json({
           token: `Bearer ${token}`,
           userId: user._id,
@@ -45,9 +36,7 @@ userCtrl.login = async (req, res) => {
         });
       }
     } else {
-      return res
-        .status(404)
-        .json({ errors: [{ msg: "Invalid email / password." }] });
+      return res.status(404).json({ errors: [{ msg: "Invalid email / password." }] });
     }
   } catch (error) {
     res.status(400).json(error);

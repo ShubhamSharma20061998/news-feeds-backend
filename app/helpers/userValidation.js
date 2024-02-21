@@ -54,8 +54,7 @@ const passwordRegisterSchema = {
       minNumbers: 1,
       minSymbols: 1,
     },
-    errorMessage:
-      "password should contain 8 - 128 characters with atleast one lowercase, uppercase ,number and symbol",
+    errorMessage: "password should contain 8 - 128 characters with atleast one lowercase, uppercase ,number and symbol",
   },
 };
 

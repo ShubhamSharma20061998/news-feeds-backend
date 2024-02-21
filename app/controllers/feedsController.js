@@ -37,12 +37,7 @@ feedsCtrl.get = async (req, res) => {
     }
 
     // feeds cron to get continous data
-    currentCronJob = feedsCron(
-      currentCronJob,
-      category.url,
-      existingFeeds,
-      category
-    );
+    currentCronJob = feedsCron(currentCronJob, category.url, existingFeeds, category);
 
     const feeds = await Feed.find({ category: id }).populate("category");
     res.json(feeds);
