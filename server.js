@@ -1,27 +1,32 @@
+// Import necessary modules
 const express = require("express");
 const cors = require("cors");
 
-// routes
+// Import database configuration
 const configureDB = require("./config/configureDB");
 
+// Create an Express app
 const app = express();
 const port = process.env.PORT || 3030;
 
+// Import route handlers
 const userRouter = require("./routes/userRoutes");
 const categoryRouter = require("./routes/categoryRoutes");
 const feedRouter = require("./routes/feedRoutes");
 
-//DB connection
+// Connect to the database
 configureDB();
 
-app.use(express.json());
-app.use(cors());
+// Middleware setup
+app.use(express.json()); // Parse incoming JSON data
+app.use(cors()); // Enable Cross-Origin Resource Sharing (CORS)
 
-// app.use("/", userRouter);
-app.use("/users", userRouter);
-app.use("/category", categoryRouter);
-app.use("/feeds", feedRouter);
+// Define routes
+app.use("/users", userRouter); // User-related routes
+app.use("/category", categoryRouter); // Category-related routes
+app.use("/feeds", feedRouter); // Feed-related routes
 
+// Start the server
 app.listen(port, () => {
-  console.log(`server listening on port ${port}`);
+  console.log(`Server listening on port ${port}`);
 });

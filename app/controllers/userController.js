@@ -23,7 +23,7 @@ userCtrl.login = async (req, res) => {
       // password verification
       const verifiedPassword = await bcrypt.compare(body.password, user.password);
       if (!verifiedPassword) {
-        return res.status(400).json({ errors: [{ msg: "Invalid email / password." }] });
+        return res.status(404).json({ errors: [{ msg: "Invalid email / password." }] });
       } else {
         // generating user token
         const token = jwt.sign({ userId: user._id, role: user.role }, secretKey, {
@@ -39,7 +39,7 @@ userCtrl.login = async (req, res) => {
       return res.status(404).json({ errors: [{ msg: "Invalid email / password." }] });
     }
   } catch (error) {
-    res.status(400).json(error);
+    res.status(500).json(error);
   }
 };
 

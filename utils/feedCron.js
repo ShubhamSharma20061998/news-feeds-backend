@@ -25,15 +25,15 @@ const feedsCron = (cronJob, url, existingFeeds, category) => {
       });
 
       // save feeds to DB
-      if (existingFeeds.length == 0) {
-        saveFeeds(parsedResult, category._id);
-      } else {
-        let recentFeed = existingFeeds.map(el => new Date(el.pubDate)).sort((a, b) => new Date(b) - new Date(a))[0] || new Date();
+      // if (existingFeeds.length == 0) {
+      //   saveFeeds(parsedResult, category._id);
+      // } else {
+      let recentFeed = existingFeeds.map(el => new Date(el.pubDate)).sort((a, b) => new Date(b) - new Date(a))[0] || new Date();
 
-        // Filter only new feeds
-        const newFeeds = parsedResult.filter(el => new Date(el.pubDate[0]) > recentFeed);
-        saveFeeds(newFeeds, category._id);
-      }
+      // Filter only new feeds
+      const newFeeds = parsedResult.filter(el => new Date(el.pubDate[0]) > recentFeed);
+      saveFeeds(newFeeds, category._id);
+      // }
     } catch (err) {
       console.error(err);
     }
